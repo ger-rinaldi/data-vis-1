@@ -24,6 +24,9 @@ function render_bars(dataset){
   const svgW = svg.node().clientWidth;
   // get standar width of each bar
   const rectW = svgW / dataset.length;
+
+  svg.selectAll("rect").data(dataset).enter().append("rect") // link data and bars
+  .attr("class", "bar").attr("data-date", d => d[0]).attr("data-gdp", d => d[1]) // add attributes for tooltip
 };
 
 main();
