@@ -25,8 +25,20 @@ function render_bars(dataset){
   // get standar width of each bar
   const rectW = svgW / dataset.length;
 
+  const [xScale, yScale] = get_scales(dataset, svgH, svgW);
+
   svg.selectAll("rect").data(dataset).enter().append("rect") // link data and bars
   .attr("class", "bar").attr("data-date", d => d[0]).attr("data-gdp", d => d[1]) // add attributes for tooltip
+};
+
+function get_scales(dataset, height, width){
+  // padding variable incase of using padding for better looks
+  const pad = 0;
+
+  const xScale = d3.scaleLinear().domain([0,dataset.length-1]).range([pad,width]);
+  const yScale = d3.scaleLinear().domain([0, d3.max(dataset, d => d[1])]).range([pad, height]);
+  
+  return [xScale, yScale]
 };
 
 main();
