@@ -29,6 +29,8 @@ function render_bars(dataset){
 
   svg.selectAll("rect").data(dataset).enter().append("rect") // link data and bars
   .attr("class", "bar").attr("data-date", d => d[0]).attr("data-gdp", d => d[1]) // add attributes for tooltip
+  .attr("width",rectW).attr("height", d => yScale(d[1])) // set height and width
+  .attr("x", (d, i) => xScale(i)).attr("y", d => svgH - yScale(d[1])); // position bars in chart
 };
 
 function get_scales(dataset, height, width){
