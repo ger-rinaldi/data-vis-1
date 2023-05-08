@@ -13,3 +13,17 @@ function main(){
 
   data_request.send();
 };
+
+function render_bars(dataset){
+
+  // Create d3.svg object
+  const svg = d3.select("body").select("svg");
+
+  // Get height and width to compute scales and positioning of bars and axis
+  const svgH = svg.node().clientHeight;
+  const svgW = svg.node().clientWidth;
+  // get standar width of each bar
+  const rectW = svgW / dataset.length;
+};
+
+main();
