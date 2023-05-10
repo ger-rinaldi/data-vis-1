@@ -30,10 +30,13 @@ function render_bars(dataset){
   const [xScale, yScale] = get_scales(dataset, svgH, svgW, pad);
   const [xAxis, yAxis] = get_axes(xScale, yScale);
 
-  svg.selectAll("rect").data(dataset).enter().append("rect") // link data and bars
-  .attr("class", "bar").attr("data-date", d => d[0]).attr("data-gdp", d => d[1]) // add attributes for tooltip
-  .attr("width",rectW).attr("height", d => yScale(d[1])) // set height and width
-  .attr("x", (d, i) => xScale(i)).attr("y", d => svgH - pad - yScale(d[1])); // position bars in chart
+  let bars = svg.selectAll("rect").data(dataset).enter().append("rect") // append rect per data entry
+
+  bars.attr("class", "bar").attr("data-date", d => d[0]).attr("data-gdp", d => d[1]) // add tooltip attributes
+
+  bars.attr("width",rectW).attr("height", d => yScale(d[1])) // set height and width
+
+  bars.attr("x", (d, i) => xScale(i)).attr("y", d => svgH - pad - yScale(d[1])); // position bars in chart
 };
 
 function get_scales(dataset, height, width, pad){
