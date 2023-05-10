@@ -15,7 +15,7 @@ function main(){
 };
 
 function render_bars(dataset){
-  const pad = 30;
+  const pad = 40;
   
   // Create d3.svg object
   const svg = d3.select("body").select("svg");
@@ -29,6 +29,9 @@ function render_bars(dataset){
   // get scales and axes
   const [xScale, yScale, dateScale, gdpScale] = get_scales(dataset, svgH, svgW, pad);
   const [xAxis, yAxis] = get_axes(dateScale, gdpScale);
+
+  svg.append("g").call(xAxis).attr("id", "x-axis").attr("transform", `translate(0, ${svgH - (pad - 5) })`)
+  svg.append("g").call(yAxis).attr("id", "y-axis").attr("transform", `translate(${pad})`)
 
   let bars = svg.selectAll("rect").data(dataset).enter().append("rect") // append rect per data entry
 
@@ -52,7 +55,7 @@ function get_scales(dataset, height, width, pad){
   // get all dates to format thedate scale
   const dates = dataset.map(d => new Date(d[0]));
   const dateScale = d3.scaleTime().domain([d3.min(dates), d3.max(dates)]).range([pad, xRangeEnd])
-  const gdpScale = d3.scaleLinear().domain([0, maxYvalue]).range([yRangeEnd, 0]);
+  const gdpScale = d3.scaleLinear().domain([0, maxYvalue]).range([yRangeEnd + pad, pad]);
 
   return [xScale, yScale, dateScale, gdpScale]
 };
