@@ -24,7 +24,7 @@ function render_bars(dataset){
   const svgH = svg.node().clientHeight;
   const svgW = svg.node().clientWidth;
   // get standar width of each bar
-  const rectW = svgW / dataset.length;
+  const rectW = (svgW - pad * 2) / dataset.length;
   
   // get scales and axes
   const [xScale, yScale, dateScale, gdpScale] = get_scales(dataset, svgH, svgW, pad);
