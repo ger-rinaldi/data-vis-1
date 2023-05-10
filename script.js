@@ -16,6 +16,7 @@ function main(){
 
 function render_bars(dataset){
   const pad = 30;
+  
   // Create d3.svg object
   const svg = d3.select("body").select("svg");
 
@@ -24,8 +25,10 @@ function render_bars(dataset){
   const svgW = svg.node().clientWidth;
   // get standar width of each bar
   const rectW = svgW / dataset.length;
-
+  
+  // get scales and axes
   const [xScale, yScale] = get_scales(dataset, svgH, svgW, pad);
+  const [xAxis, yAxis] = get_axes(xScale, yScale);
 
   svg.selectAll("rect").data(dataset).enter().append("rect") // link data and bars
   .attr("class", "bar").attr("data-date", d => d[0]).attr("data-gdp", d => d[1]) // add attributes for tooltip
@@ -39,6 +42,13 @@ function get_scales(dataset, height, width, pad){
   const yScale = d3.scaleLinear().domain([0, d3.max(dataset, d => d[1])]).range([0, height - pad*2]);
   
   return [xScale, yScale]
+};
+
+function get_axes(xScale, yScale){
+  const xAxis = d3.axisBottom(xScale);
+  const yAxis = d3.axisLeft(yScale);
+
+  return [xAxis, yAxis];
 };
 
 main();
