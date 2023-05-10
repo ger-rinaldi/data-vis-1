@@ -15,7 +15,7 @@ function main(){
 };
 
 function render_bars(dataset){
-
+  const pad = 30;
   // Create d3.svg object
   const svg = d3.select("body").select("svg");
 
@@ -30,15 +30,15 @@ function render_bars(dataset){
   svg.selectAll("rect").data(dataset).enter().append("rect") // link data and bars
   .attr("class", "bar").attr("data-date", d => d[0]).attr("data-gdp", d => d[1]) // add attributes for tooltip
   .attr("width",rectW).attr("height", d => yScale(d[1])) // set height and width
-  .attr("x", (d, i) => xScale(i)).attr("y", d => svgH - yScale(d[1])); // position bars in chart
+  .attr("x", (d, i) => xScale(i)).attr("y", d => svgH - pad - yScale(d[1])); // position bars in chart
 };
 
 function get_scales(dataset, height, width){
   // padding variable incase of using padding for better looks
-  const pad = 0;
+  const pad = 30;
 
-  const xScale = d3.scaleLinear().domain([0,dataset.length-1]).range([pad,width]);
-  const yScale = d3.scaleLinear().domain([0, d3.max(dataset, d => d[1])]).range([pad, height]);
+  const xScale = d3.scaleLinear().domain([0,dataset.length-1]).range([pad,width - pad]);
+  const yScale = d3.scaleLinear().domain([0, d3.max(dataset, d => d[1])]).range([0, height - pad*2]);
   
   return [xScale, yScale]
 };
