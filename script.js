@@ -57,9 +57,9 @@ function get_scales(dataset, height, width, pad){
   return [xScale, yScale, dateScale, gdpScale]
 };
 
-function get_axes(xScale, yScale){
-  const xAxis = d3.axisBottom(xScale);
-  const yAxis = d3.axisLeft(yScale);
+function get_axes(datesScale, gdpScale){
+  const xAxis = d3.axisBottom(datesScale);
+  const yAxis = d3.axisLeft(gdpScale);
 
   return [xAxis, yAxis];
 };
