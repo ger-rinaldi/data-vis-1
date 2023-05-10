@@ -11,3 +11,12 @@ body{
     width: 95vw;
     height: 80vh;
 }
+
+#tooltip{
+    visibility: hidden;
+    width: 60px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: rgba(205, 100, 60, .3);
+    text-align: center;
+}
