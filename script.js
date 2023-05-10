@@ -40,10 +40,15 @@ function render_bars(dataset){
 };
 
 function get_scales(dataset, height, width, pad){
-
-  const xScale = d3.scaleLinear().domain([0,dataset.length-1]).range([pad,width - pad]);
-  const yScale = d3.scaleLinear().domain([0, d3.max(dataset, d => d[1])]).range([0, height - pad*2]);
-  
+  // get end of ranges
+  const xRangeEnd = width - pad;
+  const yRangeEnd = height - pad*2;
+  // get max domain value
+  const maxXvalue = dataset.length-1;
+  const maxYvalue = d3.max(dataset, d => d[1]);
+  // Get scale of X and Y
+  const xScale = d3.scaleLinear().domain([0,maxXvalue]).range([pad, xRangeEnd]);
+  const yScale = d3.scaleLinear().domain([0, maxYvalue]).range([0, yRangeEnd]);
   return [xScale, yScale]
 };
 
