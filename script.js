@@ -33,23 +33,25 @@ function render_bars(dataset){
   const tooltip = d3.select("body").select("#tooltip")
 
   svg.append("g").call(xAxis).attr("id", "x-axis").attr("transform", `translate(0, ${svgH - (pad - 5) })`)
-  svg.append("g").call(yAxis).attr("id", "y-axis").attr("transform", `translate(${pad})`)
+  svg.append("g").call(yAxis).attr("id", "y-axis").attr("transform", `translate(${pad})`);
 
-  let bars = svg.selectAll("rect").data(dataset).enter().append("rect") // append rect per data entry
+  let bars = svg.selectAll("rect").data(dataset).enter().append("rect"); // append rect per data entry
 
-  bars.attr("class", "bar").attr("data-date", d => d[0]).attr("data-gdp", d => d[1]) // add tooltip attributes
+  bars.attr("class", "bar").attr("data-date", d => d[0]).attr("data-gdp", d => d[1]); // add tooltip attributes
 
-  bars.attr("width",rectW).attr("height", d => yScale(d[1])) // set height and width
+  bars.attr("width",rectW).attr("height", d => yScale(d[1])); // set height and width
 
   bars.attr("x", (d, i) => xScale(i)).attr("y", d => svgH - pad - yScale(d[1])); // position bars in chart
-
-  bars.on("mouseover", (d) => {
-    tooltip.transition().style("visibility", "visible")
-  })
-
-  bars.on("mouseout", (d)=>{
-    tooltip.transition().style("visibility", "hidden")
-  })
+  
+  bars.on("mouseover", (e, d) => {
+    tooltip.transition().style("visibility", "visible");
+    tooltip.text(`${d[0]}`).attr("data-date", d[0]);
+    
+  });
+  
+  bars.on("mouseout", (e, d)=>{
+    tooltip.transition().style("visibility", "hidden");
+  });
 };
 
 function get_scales(dataset, height, width, pad){
