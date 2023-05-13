@@ -7,6 +7,12 @@ body{
     height: 100vh;
 }
 
+#title{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: x-large;
+    color: black;
+}
+
 #chart{
     background-color: whitesmoke;
     width: 95vw;
