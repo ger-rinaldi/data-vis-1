@@ -29,6 +29,8 @@ function render_bars(dataset){
   // get scales and axes
   const [xScale, yScale, dateScale, gdpScale] = get_scales(dataset, svgH, svgW, pad);
   const [xAxis, yAxis] = get_axes(dateScale, gdpScale);
+  // Position title in svg
+  svg.select("text").attr("x", Math.floor((svgW - pad*4) / 2));
 
   const tooltip = d3.select("body").select("#tooltip")
 
